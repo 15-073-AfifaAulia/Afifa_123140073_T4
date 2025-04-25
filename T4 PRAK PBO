@@ -1,0 +1,72 @@
+#Afifa Aulia
+#123140073
+
+def tampilkan_menu():
+    print("\nPilih aksi:")
+    print("1. Tambah tugas")
+    print("2. Hapus tugas")
+    print("3. Tampilkan daftar tugas")
+    print("4. Keluar")
+
+def tambah_tugas(daftar_tugas):
+    try:
+        tugas_baru = input("Masukkan tugas yang ingin ditambahkan: ").strip()
+        if not tugas_baru:
+            raise ValueError("Input tidak boleh kosong.")
+        daftar_tugas.append(tugas_baru)
+        print("Tugas berhasil ditambahkan!")
+    except ValueError as e:
+        print(f"Error: {e}")
+
+def hapus_tugas(daftar_tugas):
+    try:
+        if not daftar_tugas:
+            raise IndexError("Daftar tugas kosong. Tidak ada yang bisa dihapus.")
+        try:
+            nomor_tugas = int(input("Masukkan nomor tugas yang ingin dihapus: "))
+            if 1 <= nomor_tugas <= len(daftar_tugas):
+                tugas_dihapus = daftar_tugas.pop(nomor_tugas - 1)
+                print(f"Tugas '{tugas_dihapus}' berhasil dihapus!")
+            else:
+                raise IndexError(f"Tidak ada tugas dengan nomor {nomor_tugas}.")
+        except ValueError:
+            raise ValueError("Input nomor tugas tidak valid. Harap masukkan angka.")
+        except IndexError as e:
+            print(f"Error: {e}")
+    except IndexError as e:
+        print(f"Error: {e}")
+    except ValueError as e:
+        print(f"Error: {e}")
+
+def tampilkan_daftar_tugas(daftar_tugas):
+    print("\nDaftar Tugas:")
+    if not daftar_tugas:
+        print("- Belum ada tugas yang ditambahkan.")
+    else:
+        for i, tugas in enumerate(daftar_tugas):
+            print(f"- {tugas}")
+
+def main():
+    daftar_tugas = []
+    while True:
+        tampilkan_menu()
+        try:
+            pilihan = input("Masukkan pilihan (1/2/3/4): ")
+            if pilihan == '1':
+                tambah_tugas(daftar_tugas)
+            elif pilihan == '2':
+                hapus_tugas(daftar_tugas)
+            elif pilihan == '3':
+                tampilkan_daftar_tugas(daftar_tugas)
+            elif pilihan == '4':
+                print("Keluar dari program.")
+                break
+            else:
+                raise ValueError("Pilihan tidak valid. Harap masukkan angka 1, 2, 3, atau 4.")
+        except ValueError as e:
+            print(f"Error: {e}")
+        except Exception as e:
+            print(f"Terjadi kesalahan yang tidak terduga: {e}")
+
+if __name__ == "__main__":
+    main()
